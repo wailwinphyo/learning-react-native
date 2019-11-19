@@ -1,5 +1,139 @@
 import React, { Component } from "react";
-import { Image, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Platform,
+  TouchableHighlight,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  TouchableWithoutFeedback,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Button
+} from "react-native";
+
+export default class Touchables extends Component {
+  _onPressButton() {
+    alert("You tapped the button");
+  }
+  _onLongPressButton() {
+    alert("You long-pressed the button !");
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <TouchableHighlight onPress={this._onPressButton} underlayColor="white">
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>TouchableHighlight</Text>
+          </View>
+        </TouchableHighlight>
+
+        <TouchableOpacity onPress={this._onPressButton} underlayColor="white">
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>TouchableOpacity</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableNativeFeedback
+          onPress={this._onPressButton}
+          background={
+            Platform.OS === "android"
+              ? TouchableNativeFeedback.SelectableBackground()
+              : ""
+          }
+          underlayColor="white"
+        >
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>
+              TouchableNativeFeedback
+              {Platform.OS !== "android" ? "Android Only" : ""}
+            </Text>
+          </View>
+        </TouchableNativeFeedback>
+
+        <TouchableWithoutFeedback
+          onPress={this._onPressButton}
+          underlayColor="white"
+        >
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>TouchableWithoutFeedback</Text>
+          </View>
+        </TouchableWithoutFeedback>
+
+        <TouchableHighlight
+          onPress={this._onPressButton}
+          onLongPress={this._onLongPressButton}
+          underlayColor="white"
+        >
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Touchable with long press</Text>
+          </View>
+        </TouchableHighlight>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 60,
+    alignItems: "center"
+  },
+  button: {
+    marginBottom: 30,
+    width: 260,
+    alignItems: "center",
+    backgroundColor: "red"
+  },
+  buttonText: {
+    textAlign: "center",
+    padding: 20,
+    color: "white"
+  }
+});
+// handling touches - tuto
+// export default class ButtonBasics extends Component {
+//   _onPressButton() {
+//     alert("You tapped the button !");
+//   }
+//   render() {
+//     return (
+//       <View style={styles.container}>
+//         <View style={styles.buttonContainer}>
+//           <Button onPress={this._onPressButton} title="Press Me" />
+//         </View>
+
+//         <View style={styles.buttonContainer}>
+//           <Button
+//             onPress={this._onPressButton}
+//             title="Press Me"
+//             color="#841584"
+//           />
+//         </View>
+
+//         <View style={styles.alternativeLayoutButtonContainer}>
+//           <Button onPress={this._onPressButton} title="This looks great!" />
+//           <Button onPress={this._onPressButton} title="OK!" color="#841584" />
+//         </View>
+//       </View>
+//     );
+//   }
+// }
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: "center"
+//   },
+//   buttonContainer: {
+//     margin: 20
+//   },
+//   alternativeLayoutButtonContainer: {
+//     margin: 20,
+//     flexDirection: "row",
+//     justifyContent: "space-between"
+//   }
+// });
 
 // // handling text output [ Pizza Transalator ] - tuto
 // export default class PizzaTranslator extends Component {
@@ -75,152 +209,3 @@ import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 //         />
 //         <View
 //           style={{
-//             width: 100,
-//             height: 100,
-//             backgroundColor: "cyan"
-//           }}
-//         />
-//         <View
-//           style={{
-//             width: 100,
-//             height: 100,
-//             backgroundColor: "skyblue"
-//           }}
-//         />
-//         <View
-//           style={{
-//             width: 100,
-//             height: 100,
-//             backgroundColor: "powderblue"
-//           }}
-//         />
-//         <View
-//           style={{
-//             width: 100,
-//             height: 100,
-//             backgroundColor: "green"
-//           }}
-//         />
-//       </View>
-//     );
-//   }
-// }
-
-// // flex - tuto
-// export default class FlexDimensionsBasics extends Component {
-//   render() {
-//     return (
-//       <View style={{ flex: 1 }}>
-//         <View style={{ flex: 1, backgroundColor: "powderblue" }} />
-//         <View style={{ flex: 2, backgroundColor: "skyblue" }} />
-//         <View style={{ flex: 3, backgroundColor: "steelblue" }} />
-//       </View>
-//     );
-//   }
-// }
-
-// // height and width - tuto
-// export default class FixedDimensionsBasics extends Component {
-//   render() {
-//     return (
-//       <View>
-//         <View
-//           style={{ width: 50, height: 50, backgroundColor: "powderblue" }}
-//         />
-//         <View style={{ width: 100, height: 100, backgroundColor: "skyblue" }} />
-//         <View
-//           style={{ width: 150, height: 150, backgroundColor: "steelblue" }}
-//         />
-//       </View>
-//     );
-//   }
-// }
-
-// // styles - tuto
-// const styles = StyleSheet.create({
-//   bigBlue: {
-//     color: "blue",
-//     fontWeight: "bold",
-//     fontSize: 30
-//   },
-//   red: {
-//     color: "red"
-//   }
-// });
-
-// export default class LotOfStyles extends Component {
-//   render() {
-//     return (
-//       <View>
-//         <Text style={styles.red}>Just Red</Text>
-//         <Text style={styles.bigBlue}>BigBlue</Text>
-//         <Text style={[styles.bigBlue, styles.red]}>Big Red</Text>
-//         <Text style={[styles.red, styles.bigBlue]}>Big Blue</Text>
-//       </View>
-//     );
-//   }
-// }
-
-// // state - tuto
-// class Blink extends Component {
-//   componentDidMount() {
-//     setInterval(() => {
-//       this.setState(prev => ({ isShowingText: !prev.isShowingText }));
-//     }, 1000);
-//   }
-//   state = { isShowingText: true };
-
-//   render() {
-//     if (!this.state.isShowingText) {
-//       return null;
-//     }
-//     return <Text>{this.props.text}</Text>;
-//   }
-// }
-
-// export default class BlinkApp extends Component {
-//   render() {
-//     return (
-//       <View>
-//         <Blink text="I love to blink"></Blink>
-//         <Blink text="Yes blinking is so great" />
-//         <Blink text="Why did they ever take this out of HTML" />
-//         <Blink text="Look at me look at me look at me" />
-//       </View>
-//     );
-//   }
-// }
-
-// // props - tuto
-// class Greeting extends Component {
-//   render() {
-//     return (
-//       <View style={{ alignItems: "center" }}>
-//         <Text> Hello {this.props.name} </Text>
-//       </View>
-//     );
-//   }
-// }
-
-// export default class LotsOfGreetings extends Component {
-//   render() {
-//     return (
-//       <View style={{ alignItems: "center", top: 50 }}>
-//         <Greeting name="Rexxar" />
-//         <Greeting name="Jaina" />
-//         <Greeting name="Valeera" />
-//       </View>
-//     );
-//   }
-// }
-
-// // Image - Tuto
-// export default class Bannas extends Component {
-//   render() {
-//     let pic = {
-//       uri:
-//         "https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg"
-//     };
-//     return <Image source={pic} style={{ width: 193, height: 110 }} />;
-//   }
-// }
